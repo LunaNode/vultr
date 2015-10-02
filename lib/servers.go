@@ -40,6 +40,7 @@ type Server struct {
 
 type ServerOptions struct {
 	IPXEChainURL      string
+	OS                int
 	ISO               int
 	Script            int
 	UserData          string
@@ -166,12 +167,11 @@ func (c *Client) GetServer(id string) (server Server, err error) {
 	return server, nil
 }
 
-func (c *Client) CreateServer(name string, regionID, planID, osID int, options *ServerOptions) (Server, error) {
+func (c *Client) CreateServer(name string, regionID, planID int, options *ServerOptions) (Server, error) {
 	values := url.Values{
 		"label":     {name},
-		"DCID":      {fmt.Sprintf("%v", regionID)},
-		"VPSPLANID": {fmt.Sprintf("%v", planID)},
-		"OSID":      {fmt.Sprintf("%v", osID)},
+		"DCID":      {fmt.Sprintf("%d", regionID)},
+		"VPSPLANID": {fmt.Sprintf("%d", planID)},
 	}
 
 	if options != nil {
@@ -179,12 +179,16 @@ func (c *Client) CreateServer(name string, regionID, planID, osID int, options *
 			values.Add("ipxe_chain_url", options.IPXEChainURL)
 		}
 
+		if options.OS != 0 {
+			values.Add("OSID", fmt.Sprintf("%d", options.OS))
+		}
+
 		if options.ISO != 0 {
-			values.Add("ISOID", fmt.Sprintf("%v", options.ISO))
+			values.Add("ISOID", fmt.Sprintf("%d", options.ISO))
 		}
 
 		if options.Script != 0 {
-			values.Add("SCRIPTID", fmt.Sprintf("%v", options.Script))
+			values.Add("SCRIPTID", fmt.Sprintf("%d", options.Script))
 		}
 
 		if options.UserData != "" {

@@ -6,7 +6,7 @@ import "net/url"
 type Snapshot struct {
 	ID          string `json:"SNAPSHOTID"`
 	Description string `json:"description"`
-	Size        string `json:"size"`
+	Size        int64  `json:"size,string"`
 	Status      string `json:"status"`
 	Created     string `json:"date_created"`
 }

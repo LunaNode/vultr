@@ -7,8 +7,8 @@ type Plan struct {
 	ID        int    `json:"VPSPLANID,string"`
 	Name      string `json:"name"`
 	VCpus     int    `json:"vcpu_count,string"`
-	RAM       string `json:"ram"`
-	Disk      string `json:"disk"`
+	RAM       int `json:"ram,string"`
+	Disk      int `json:"disk,string"`
 	Bandwidth string `json:"bandwidth"`
 	Price     string `json:"price_per_month"`
 }
