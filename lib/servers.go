@@ -44,6 +44,7 @@ type ServerOptions struct {
 	OS                int
 	ISO               int
 	Script            int
+	Application       int
 	UserData          string
 	Snapshot          string
 	SSHKey            string
@@ -233,6 +234,10 @@ func (c *Client) CreateServer(name string, regionID, planID int, options *Server
 
 		if options.Snapshot != "" {
 			values.Add("SNAPSHOTID", options.Snapshot)
+		}
+
+		if options.Application != 0 {
+			values.Add("APPID", fmt.Sprintf("%d", options.Application))
 		}
 
 		if options.SSHKey != "" {
