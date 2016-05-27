@@ -217,7 +217,7 @@ func Test_Servers_CreateServer_Error(t *testing.T) {
 	server, client := getTestServerAndClient(http.StatusNotAcceptable, `{error}`)
 	defer server.Close()
 
-	s, err := client.CreateServer("test", 1, 2, 3, nil)
+	s, err := client.CreateServer("test", 1, 2, nil)
 	assert.Equal(t, Server{}, s)
 	if assert.NotNil(t, err) {
 		assert.Equal(t, `{error}`, err.Error())
@@ -228,7 +228,7 @@ func Test_Servers_CreateServer_NoServer(t *testing.T) {
 	server, client := getTestServerAndClient(http.StatusOK, `[]`)
 	defer server.Close()
 
-	s, err := client.CreateServer("test", 1, 2, 3, nil)
+	s, err := client.CreateServer("test", 1, 2, nil)
 	if err != nil {
 		t.Error(err)
 	}
@@ -242,7 +242,7 @@ func Test_Servers_CreateServer_OK(t *testing.T) {
 		"VPSPLANID":"29"}`)
 	defer server.Close()
 
-	s, err := client.CreateServer("test", 1, 2, 3, nil)
+	s, err := client.CreateServer("test", 1, 2, nil)
 	if err != nil {
 		t.Error(err)
 	}
@@ -264,15 +264,15 @@ func Test_Servers_CreateServer_OK(t *testing.T) {
 		PrivateNetworking: true,
 		AutoBackups:       true,
 	}
-	s2, err := client.CreateServer("test2", 4, 5, 6, options)
+	s2, err := client.CreateServer("test2", 3, 4, options)
 	if err != nil {
 		t.Error(err)
 	}
 	if assert.NotNil(t, s2) {
 		assert.Equal(t, "123456789", s2.ID)
 		assert.Equal(t, "test2", s2.Name)
-		assert.Equal(t, 4, s2.RegionID)
-		assert.Equal(t, 5, s2.PlanID)
+		assert.Equal(t, 3, s2.RegionID)
+		assert.Equal(t, 4, s2.PlanID)
 	}
 
 }

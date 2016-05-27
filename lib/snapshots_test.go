@@ -48,12 +48,12 @@ func Test_Snapshots_GetSnapshots_OK(t *testing.T) {
 			switch snapshot.ID {
 			case "5359435d28b9a":
 				assert.Equal(t, "Test snapshot", snapshot.Description)
-				assert.Equal(t, "42949672960", snapshot.Size)
+				assert.Equal(t, int64(42949672960), snapshot.Size)
 				assert.Equal(t, "complete", snapshot.Status)
 				assert.Equal(t, "2014-04-18 12:40:40", snapshot.Created)
 			case "5359435dc1df3":
 				assert.Equal(t, "", snapshot.Description)
-				assert.Equal(t, "10000000", snapshot.Size)
+				assert.Equal(t, int64(10000000), snapshot.Size)
 				assert.Equal(t, "incomplete", snapshot.Status)
 				assert.Equal(t, "2014-04-22 16:11:46", snapshot.Created)
 			default:
